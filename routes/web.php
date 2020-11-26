@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes(['register' => false]);
+
 Route::get('/', function () {
     return view('index');
-})->name('index');
+})->name('index')->middleware('auth');
