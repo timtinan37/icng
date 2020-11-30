@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => false]);
 
-Route::get('/', function () {
-    return view('index');
-})->name('index')->middleware('auth');
+Route::group(['middleware' => 'auth'], function ()
+{
+	Route::get('/', function () {
+	    return view('index');
+	})->name('index');
+	Route::resource('users', 'UserController');
+});

@@ -9,4 +9,6 @@
     <meta name="theme-color" content="#ffffff">
     <!-- Main styles for this application-->
     <link href="{{ asset('/coreui/css/style.css') }}" rel="stylesheet">
+
+    @yield('head-styles')
 </head>
