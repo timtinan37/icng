@@ -24,7 +24,7 @@
       <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('logs.index') }}" target="_blank">
         <svg class="c-sidebar-nav-icon">
           <use xlink:href="{{ asset('/coreui/vendors/@coreui/icons/svg/free.svg#cil-star') }}"></use>
-        </svg> Activiry Logs</a>
+        </svg> Activity Logs</a>
       </li>
     @endcan
     <li class="c-sidebar-nav-dropdown"><a class="c-sidebar-nav-dropdown-toggle" href="#">

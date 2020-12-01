@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UuidTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, UuidTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -39,10 +40,6 @@ class User extends Authenticatable
         'id' => 'string',
         'email_verified_at' => 'datetime'
     ];
-
-    protected $keyType = 'string';
-
-    public $incrementing = false;
 
     /**
      * Validation rules

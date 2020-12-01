@@ -51,7 +51,14 @@ return [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
-            'days' => 14,
+            'days' => env('LOG_DAYS'),
+        ],
+
+        'users' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/users/users.log'),
+            'level' => 'debug',
+            'days' => env('LOG_DAYS'),
         ],
 
         'slack' => [

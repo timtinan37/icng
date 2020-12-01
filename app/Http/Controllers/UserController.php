@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Requests\UserRequest;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\{View, Hash, Redirect};
+use Illuminate\Support\Facades\{
+    View,
+    Hash,
+    Redirect,
+};
 
 class UserController extends Controller
 {
@@ -45,7 +48,6 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $user = $this->user->create([
-            'id' => Str::uuid(),
             'name' => request('name'),
             'email' => request('email'),
             'password' => Hash::make(request('password'))
@@ -73,7 +75,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return View::make('users.edit', compact('user'));
     }
 
     /**
@@ -85,7 +87,13 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        //
+        $user->update([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => Hash::make(request('password'))
+        ]);
+
+        return Redirect::route('users.show', $user->id);
     }
 
     /**

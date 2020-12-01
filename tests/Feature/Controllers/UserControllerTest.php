@@ -7,7 +7,10 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\{
+    View,
+    Redirect
+};
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
@@ -102,6 +105,116 @@ class UserControllerTest extends TestCase
         // act
         $response = $this->post(route('users.store'));
 
+        // assert
+        $response->assertRedirect(route('users.show', 'id'));
+    }
+
+    public function testEditRequiresAuthentication()
+    {
+        // act
+        $response = $this->get(route('users.edit', 'id'));
+
+        // assert
+        $response->assertRedirect(route('login'));
+    }
+
+    public function testEditRequiresAuthorization()
+    {
+        // arrange
+        $this->user = new User();
+        $this->mock(User::class, function ($mock)
+        {
+            $mock->shouldReceive('resolveRouteBinding')
+                ->once()
+                ->with('id', null)
+                ->andReturn($mock);
+        });
+
+        // act
+        $response = $this->actingAs($this->user)->get(route('users.edit', 'id'));
+
+        // assert
+        $response->assertStatus(403);
+
+        // cleanup
+        $this->user = null;
+    }
+
+    public function testEditReturnsCorrectViewFile()
+    {
+        // arrange
+        $this->withoutMiddleware();
+        $this->mock(User::class, function ($mock)
+        {   
+            View::shouldReceive('make')->once()->with('users.edit', ['user' => $mock])->andReturn('users.edit');
+        });
+
+        // act
+        $response = $this->get(route('users.edit', 'id'));
+
+        // assert
+        $this->assertEquals('users.edit', $response->getContent());
+    }
+
+    public function testUpdateRequiresAuthentication()
+    {
+        // act
+        $response = $this->patch(route('users.update', 'id'));
+
+        // assert
+        $response->assertRedirect(route('login'));
+    }
+
+    public function testUpdateRequiresAuthorization()
+    {
+        // arrange
+        $this->user = new User();
+        $this->mock(User::class, function ($mock)
+        {
+            $mock->shouldReceive('resolveRouteBinding')
+                ->once()
+                ->with('id', null)
+                ->andReturn($mock);
+        });
+
+        // act
+        $response = $this->actingAs($this->user)->patch(route('users.update', 'id'));
+
+        // assert
+        $response->assertStatus(403);
+
+        // cleanup
+        $this->user = null;
+    }
+
+    public function testUpdateFailsWithoutRequiredFields()
+    {
+        // arrange
+        $this->withoutMiddleware();
+
+        // act
+        $response = $this->patch(route('users.update', 'id'));
+
+        // assert
+        $response->assertSessionHasErrors(['name', 'email', 'password', 'password_confirmation']);
+    }
+
+    public function testUpdateSuccess()
+    {
+        // arrange
+        $this->withoutMiddleware();
+        $this->mock(UserRequest::class);
+        $this->mock(User::class, function ($mock)
+        {
+            $mock->shouldReceive('fill')->once();
+            $mock->shouldReceive('save')
+            ->once()
+            ->andReturn((object) ['id' => 'id']);
+        });
+
+        // act
+        $response = $this->patch(route('users.update', 'id'));
+        
         // assert
         $response->assertRedirect(route('users.show', 'id'));
     }

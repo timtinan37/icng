@@ -15,13 +15,15 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $admin = User::create([
+        DB::table('users')->insert([
             'id' => Str::uuid(),
             'name' => 'admin',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
+            'created_at' => now(),
         ]);
         
+        $admin = User::where('email', 'admin@example.com')->first();
         $admin->givePermissionTo(Permission::all());
     }
 }
