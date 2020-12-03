@@ -21,5 +21,10 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'delete users']);
 
         Permission::create(['name' => 'view logs']);
+
+        Permission::create(['name' => 'create branches']);
+        Permission::create(['name' => 'view branches']);
+        Permission::create(['name' => 'update branches']);
+        Permission::create(['name' => 'delete branches']);
     }
 }

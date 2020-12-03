@@ -1,15 +1,13 @@
 <?php
 
-namespace Tests\Feature\Controllers;
+namespace Tests\Unit\Controllers;
 
 use App\Models\User;
 use App\Http\Requests\UserRequest;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\{
+    Redirect,
     View,
-    Redirect
 };
 use Tests\TestCase;
 
@@ -107,6 +105,7 @@ class UserControllerTest extends TestCase
 
         // assert
         $response->assertRedirect(route('users.show', 'id'));
+        $response->assertSessionHas('status', 'User created.');
     }
 
     public function testEditRequiresAuthentication()
@@ -207,9 +206,8 @@ class UserControllerTest extends TestCase
         $this->mock(User::class, function ($mock)
         {
             $mock->shouldReceive('fill')->once();
-            $mock->shouldReceive('save')
-            ->once()
-            ->andReturn((object) ['id' => 'id']);
+            $mock->shouldReceive('save')->once();
+            $mock->shouldReceive('getAttribute')->once()->with('id')->andReturn('id');
         });
 
         // act
@@ -217,5 +215,6 @@ class UserControllerTest extends TestCase
         
         // assert
         $response->assertRedirect(route('users.show', 'id'));
+        $response->assertSessionHas('status', 'User updated.');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Users;
 
 use App\Models\User;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Edit extends Component
@@ -20,7 +20,12 @@ class Edit extends Component
 
 	protected function rules()
     {
-        return User::rules();
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user)],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => 'required',
+        ];
     }
 
 	public function updated($propertyName)

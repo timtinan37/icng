@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\{
-    View,
     Hash,
     Redirect,
+    View,
 };
 
 class UserController extends Controller
 {
+    private $user;
+    
     function __construct(User $user)
     {
         $this->user = $user;
@@ -53,7 +55,7 @@ class UserController extends Controller
             'password' => Hash::make(request('password'))
         ]);
 
-        return Redirect::route('users.show', $user->id);
+        return Redirect::route('users.show', $user->id)->with('status', 'User created.');
     }
 
     /**
@@ -87,13 +89,14 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $user->update([
+        $user->fill([
             'name' => request('name'),
             'email' => request('email'),
             'password' => Hash::make(request('password'))
         ]);
+        $user->save();
 
-        return Redirect::route('users.show', $user->id);
+        return Redirect::route('users.show', $user->id)->with('status', 'User updated.');
     }
 
     /**

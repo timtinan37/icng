@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\Users;
 
-use App\Models\User;
-use Illuminate\Support\Facades\URL;
+use App\Models\User;;
 use Livewire\Component;
 
 class Create extends Component
@@ -12,7 +11,12 @@ class Create extends Component
 
 	protected function rules()
     {
-        return User::rules();
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => 'required',
+        ];
     }
 
 	public function updated($propertyName)
