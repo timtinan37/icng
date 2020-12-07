@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Branches;
 
 use Livewire\Component;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Route;
 
 class Edit extends Component
 {

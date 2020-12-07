@@ -3,19 +3,19 @@
 namespace Tests\Unit\Controllers;
 
 use App\Models\User;
-use App\Models\Branch;
-use App\Http\Requests\BranchRequest;
+use App\Models\PolicyType;
+use App\Http\Requests\PolicyTypeRequest;
 use Illuminate\Support\Facades\View;
 use Tests\TestCase;
 
-class BranchControllerTest extends TestCase
+class PolicyTypeControllerTest extends TestCase
 {
-    private $user;
+	private $user;
 
     public function testCreateRequiresAuthentication()
     {
-        // act
-        $response = $this->get(route('branches.create'));
+    	// act
+        $response = $this->get(route('policy-types.create'));
 
         // assert
         $response->assertRedirect(route('login'));
@@ -23,39 +23,36 @@ class BranchControllerTest extends TestCase
 
     public function testCreateRequiresAuthorization()
     {
-        // arrange
-        $this->user = new User;
-        
-        // act
-        $response = $this->actingAs($this->user)->get(route('branches.create'));
+    	// arrange
+    	$this->user = new User;
 
-        // assert
-        $response->assertStatus(403);
+    	// act
+    	$response = $this->actingAs($this->user)->get(route('policy-types.create'));
 
-        // cleanup
-        $this->user = null;
+    	// assert
+    	$response->assertStatus(403);
+
+    	// cleanup
+    	$this->user = null;
     }
 
     public function testCreateReturnsCorrectViewFile()
     {
-        // arrange
-        $this->withoutMiddleware();        
-        View::shouldReceive('make')
-            ->once()
-            ->with('branches.create')
-            ->andReturn('branches.create');
+    	// arrange
+    	$this->withoutMiddleware();
+    	View::shouldReceive('make')->with('policy-types.create')->once()->andReturn('policy-types.create');
 
-        // act
-        $response = $this->get(route('branches.create'));
+    	// act
+    	$response = $this->get(route('policy-types.create'));
 
-        // assert
-        $this->assertEquals('branches.create', $response->getContent());
+    	// assert
+    	$this->assertEquals('policy-types.create', $response->getContent());
     }
 
     public function testStoreRequiresAuthentication()
     {
         // act
-        $response = $this->post(route('branches.store'));
+        $response = $this->post(route('policy-types.store'));
 
         // assert
         $response->assertRedirect(route('login'));
@@ -67,7 +64,7 @@ class BranchControllerTest extends TestCase
         $this->user = new User;
 
         // act
-        $response = $this->actingAs($this->user)->post(route('branches.store'));
+        $response = $this->actingAs($this->user)->post(route('policy-types.store'));
 
         // assert
         $response->assertStatus(403);
@@ -82,40 +79,36 @@ class BranchControllerTest extends TestCase
         $this->withoutMiddleware();
 
         // act
-        $response = $this->post(route('branches.store'));
+        $response = $this->post(route('policy-types.store'));
 
         // assert
-        $response->assertSessionHasErrors([
-            'name',
-            'email',
-            'phone_number',
-            'fax_number',
-            'address'
-        ]);
+        $response->assertSessionHasErrors(['name', 'unique_code']);
     }
 
     public function testStoreSuccess()
     {
         // arrange
         $this->withoutMiddleware();
-        $this->mock(BranchRequest::class);
-        $this->mock(Branch::class, function ($mock)
+        $this->mock(PolicyTypeRequest::class);
+        $this->mock(PolicyType::class, function ($mock)
         {
-            $mock->shouldReceive('create')->once()->andReturn((object) ['id' => 'id']);
+            $mock->shouldReceive('create')
+            ->once()
+            ->andReturn((object) ['id' => 'id']);
         });
 
         // act
-        $response = $this->post(route('branches.store'));
+        $response = $this->post(route('policy-types.store'));
 
         // assert
-        $response->assertRedirect(route('branches.show', 'id'));
-        $response->assertSessionHas('status', 'Branch created.');
+        $response->assertRedirect(route('policy-types.show', 'id'));
+        $response->assertSessionHas(['status' => 'Policy Type created.']);
     }
 
     public function testEditRequiresAuthentication()
     {
         // act
-        $response = $this->get(route('branches.edit', 'id'));
+        $response = $this->get(route('policy-types.edit', 'id'));
 
         // assert
         $response->assertRedirect(route('login'));
@@ -125,7 +118,7 @@ class BranchControllerTest extends TestCase
     {
         // arrange
         $this->user = new User;
-        $this->mock(Branch::class, function ($mock)
+        $this->mock(PolicyType::class, function ($mock)
         {
             $mock->shouldReceive('resolveRouteBinding')
                 ->once()
@@ -134,7 +127,7 @@ class BranchControllerTest extends TestCase
         });
 
         // act
-        $response = $this->actingAs($this->user)->get(route('branches.edit', 'id'));
+        $response = $this->actingAs($this->user)->get(route('policy-types.edit', 'id'));
 
         // assert
         $response->assertStatus(403);
@@ -147,22 +140,25 @@ class BranchControllerTest extends TestCase
     {
         // arrange
         $this->withoutMiddleware();
-        $this->mock(Branch::class, function ($mock)
+        $this->mock(PolicyType::class, function ($mock)
         {
-            View::shouldReceive('make')->once()->with('branches.edit', ['branch' => $mock])->andReturn('branches.edit');
+            View::shouldReceive('make')
+            ->once()
+            ->with('policy-types.edit', ['policyType' => $mock])
+            ->andReturn('policy-types.edit');
         });
-        
+
         // act
-        $response = $this->get(route('branches.edit', 'id'));
+        $response = $this->get(route('policy-types.edit', 'id'));
 
         // assert
-        $this->assertEquals('branches.edit', $response->getContent());
+        $this->assertEquals('policy-types.edit', $response->getContent());
     }
 
     public function testUpdateRequiresAuthentication()
     {
         // act
-        $response = $this->patch(route('branches.update', 'id'));
+        $response = $this->patch(route('policy-types.update', 'id'));
 
         // assert
         $response->assertRedirect(route('login'));
@@ -172,13 +168,13 @@ class BranchControllerTest extends TestCase
     {
         // arrange
         $this->user = new User;
-        $this->mock(Branch::class, function ($mock)
+        $this->mock(PolicyType::class, function ($mock)
         {
             $mock->shouldReceive('resolveRouteBinding')->once()->with('id', null)->andReturn($mock);
         });
 
         // act
-        $response = $this->actingAs($this->user)->patch(route('branches.update', 'id'));
+        $response = $this->actingAs($this->user)->patch(route('policy-types.update', 'id'));
 
         // assert
         $response->assertStatus(403);
@@ -193,28 +189,28 @@ class BranchControllerTest extends TestCase
         $this->withoutMiddleware();
 
         // act
-        $response = $this->patch(route('branches.update', 'id'));
+        $response = $this->patch(route('policy-types.update', 'id'));
 
         // assert
-        $response->assertSessionHasErrors(['name', 'email', 'address', 'phone_number', 'fax_number']);
+        $response->assertSessionHasErrors(['name', 'unique_code']);
     }
 
     public function testUpdateSuccess()
     {
         // arrange
         $this->withoutMiddleware();
-        $this->mock(BranchRequest::class);
-        $this->mock(Branch::class, function ($mock)
+        $this->mock(PolicyTypeRequest::class);
+        $this->mock(PolicyType::class, function ($mock)
         {
             $mock->shouldReceive('update')->once();
             $mock->shouldReceive('getAttribute')->once()->andReturn('id');
         });
 
         // act
-        $response = $this->patch(route('branches.update', 'id'));
+        $response = $this->patch(route('policy-types.update', 'id'));
 
         // assert
-        $response->assertRedirect(route('branches.show', 'id'));
-        $response->assertSessionHas('status', 'Branch updated.');
+        $response->assertRedirect(route('policy-types.show', 'id'));
+        $response->assertSessionHas('status', 'Policy Type updated.');
     }
 }

@@ -205,8 +205,7 @@ class UserControllerTest extends TestCase
         $this->mock(UserRequest::class);
         $this->mock(User::class, function ($mock)
         {
-            $mock->shouldReceive('fill')->once();
-            $mock->shouldReceive('save')->once();
+            $mock->shouldReceive('update')->once();
             $mock->shouldReceive('getAttribute')->once()->with('id')->andReturn('id');
         });
 

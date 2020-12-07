@@ -90,14 +90,13 @@ class BranchController extends Controller
      */
     public function update(BranchRequest $request, Branch $branch)
     {
-        $branch->fill([
+        $branch->update([
             'name' => request('name'),
             'email' => request('email'),
             'phone_number' => request('phone_number'),
             'fax_number' => request('fax_number'),
             'address' => request('address')
         ]);
-        $branch->save();
 
         return Redirect::route('branches.show', $branch->id)->with('status', 'Branch updated.');
     }

@@ -89,12 +89,11 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $user->fill([
+        $user->update([
             'name' => request('name'),
             'email' => request('email'),
             'password' => Hash::make(request('password'))
         ]);
-        $user->save();
 
         return Redirect::route('users.show', $user->id)->with('status', 'User updated.');
     }

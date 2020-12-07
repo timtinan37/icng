@@ -30,7 +30,7 @@ class BranchPolicy
      */
     public function view(User $user, Branch $branch)
     {
-        return $user->can('view branches');
+        return $user->can('view branches', $branch);
     }
 
     /**
@@ -53,7 +53,7 @@ class BranchPolicy
      */
     public function update(User $user, Branch $branch)
     {
-        return $user->can('update branches');
+        return $user->can('update branches', $branch);
     }
 
     /**

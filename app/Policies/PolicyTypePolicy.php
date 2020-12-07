@@ -2,10 +2,11 @@
 
 namespace App\Policies;
 
+use App\Models\PolicyType;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class PolicyTypePolicy
 {
     use HandlesAuthorization;
 
@@ -17,19 +18,19 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('view users');
+        return $user->can('view policy types');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\PolicyType  $policyType
      * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(User $user, PolicyType $policyType)
     {
-        return $user->can('view users', $model);
+        return $user->can('view policy types', $policyType);
     }
 
     /**
@@ -40,41 +41,41 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->can('create users');
+        return $user->can('create policy types');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\PolicyType  $policyType
      * @return mixed
      */
-    public function update(User $user, User $model)
+    public function update(User $user, PolicyType $policyType)
     {
-        return $user->can('update users', $model);
+        return $user->can('update policy types', $policyType);
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\PolicyType  $policyType
      * @return mixed
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, PolicyType $policyType)
     {
-        return $user->can('delete users', $model);
+        return $user->can('delete policy types', $policyType);
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\PolicyType  $policyType
      * @return mixed
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user, PolicyType $policyType)
     {
         //
     }
@@ -83,10 +84,10 @@ class UserPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\PolicyType  $policyType
      * @return mixed
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, PolicyType $policyType)
     {
         //
     }

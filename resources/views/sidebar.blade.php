@@ -39,7 +39,20 @@
           @endcan
         </ul>
       </li>
-    @endcan
+    @endcanany
+    @canany(['create policy types', 'view policy types'])
+      <li class="c-sidebar-nav-dropdown"><a class="c-sidebar-nav-dropdown-toggle" href="#">
+        <svg class="c-sidebar-nav-icon">
+          <use xlink:href="{{ asset('/coreui/vendors/@coreui/icons/svg/free.svg#cil-star') }}"></use>
+        </svg> Policy Types</a>
+        <ul class="c-sidebar-nav-dropdown-items">
+          @can('create policy types')
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('policy-types.create') }}"><span class="c-sidebar-nav-icon"></span> Create</a></li>
+          @endcan
+        </ul>
+      </li>
+    @endcanany
+
   </ul>
   <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
 </div>
