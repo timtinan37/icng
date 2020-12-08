@@ -37,5 +37,9 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'update transits']);
         Permission::create(['name' => 'delete transits']);
 
+        Permission::create(['name' => 'create carriages']);
+        Permission::create(['name' => 'view carriages']);
+        Permission::create(['name' => 'update carriages']);
+        Permission::create(['name' => 'delete carriages']);
     }
 }

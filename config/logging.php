@@ -82,6 +82,13 @@ return [
             'days' => env('LOG_DAYS'),
         ],
 
+        'carriages' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/carriages/carriages.log'),
+            'level' => 'debug',
+            'days' => env('LOG_DAYS'),
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

@@ -2,12 +2,13 @@
 
 namespace App\Providers;
 
-use App\Models\User;
 use App\Models\Branch;
+use App\Models\Carriage;
 use App\Models\PolicyType;
 use App\Models\Transit;
 use App\Models\User;
 use App\Observers\BranchObserver;
+use App\Observers\CarriageObserver;
 use App\Observers\PolicyTypeObserver;
 use App\Observers\TransitObserver;
 use App\Observers\UserObserver;
@@ -35,8 +36,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        User::observe(UserObserver::class);
         Branch::observe(BranchObserver::class);
+        Carriage::observe(CarriageObserver::class);
         PolicyType::observe(PolicyTypeObserver::class);
         Transit::observe(TransitObserver::class);
         User::observe(UserObserver::class);
