@@ -16,8 +16,4 @@ class Branch extends Model
 		'fax_number',
 		'email',
     ];
-
-    protected $casts = [
-    	'id' => 'string'
-    ];
 }

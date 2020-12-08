@@ -8,8 +8,4 @@ use Spatie\Permission\Models\Permission as SpatiePermission;
 class Permission extends SpatiePermission
 {
 	use UuidTrait;
-
-	protected $casts = [
-		'id' => 'string'
-	];
 }

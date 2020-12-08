@@ -31,5 +31,11 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'view policy types']);
         Permission::create(['name' => 'update policy types']);
         Permission::create(['name' => 'delete policy types']);
+
+        Permission::create(['name' => 'create transits']);
+        Permission::create(['name' => 'view transits']);
+        Permission::create(['name' => 'update transits']);
+        Permission::create(['name' => 'delete transits']);
+
     }
 }

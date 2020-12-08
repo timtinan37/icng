@@ -12,7 +12,7 @@ trait UuidTrait
             $model->keyType = 'string';
             $model->incrementing = false;
 
-            $model->{$model->getKeyName()} = $model->{$model->getKeyName()} ?: Str::uuid();
+            $model->{$model->getKeyName()} = $model->{$model->getKeyName()} ?: (string) Str::uuid();
         });
     }
     

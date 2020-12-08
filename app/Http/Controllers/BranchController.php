@@ -67,7 +67,7 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        dd($branch);
+        // 
     }
 
     /**

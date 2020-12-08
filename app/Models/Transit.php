@@ -5,12 +5,11 @@ namespace App\Models;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class PolicyType extends Model
+class Transit extends Model
 {
-	use UuidTrait;
+    use UuidTrait;
 
     protected $fillable = [
     	'name',
-    	'unique_code'
     ];
 }

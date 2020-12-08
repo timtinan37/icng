@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Users;
 
-use App\Models\User;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
