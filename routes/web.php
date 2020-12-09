@@ -26,4 +26,5 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::resource('policy-types', 'PolicyTypeController')->parameters(['policy-types' => 'policyType']);
 	Route::resource('transits', 'TransitController');
 	Route::resource('carriages', 'CarriageController');
+	Route::resource('risks', 'RiskController');
 });

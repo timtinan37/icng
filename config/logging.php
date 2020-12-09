@@ -89,6 +89,13 @@ return [
             'days' => env('LOG_DAYS'),
         ],
 
+        'risks' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/risks/risks.log'),
+            'level' => 'debug',
+            'days' => env('LOG_DAYS'),
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

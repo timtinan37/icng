@@ -41,5 +41,10 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'view carriages']);
         Permission::create(['name' => 'update carriages']);
         Permission::create(['name' => 'delete carriages']);
+
+        Permission::create(['name' => 'create risks']);
+        Permission::create(['name' => 'view risks']);
+        Permission::create(['name' => 'update risks']);
+        Permission::create(['name' => 'delete risks']);
     }
 }
