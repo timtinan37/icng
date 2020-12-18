@@ -4,13 +4,11 @@ namespace App\Providers;
 
 use App\Models\Branch;
 use App\Models\Carriage;
-use App\Models\PolicyType;
 use App\Models\Risk;
 use App\Models\Transit;
 use App\Models\User;
 use App\Observers\BranchObserver;
 use App\Observers\CarriageObserver;
-use App\Observers\PolicyTypeObserver;
 use App\Observers\RiskObserver;
 use App\Observers\TransitObserver;
 use App\Observers\UserObserver;
@@ -40,7 +38,6 @@ class AppServiceProvider extends ServiceProvider
 
         Branch::observe(BranchObserver::class);
         Carriage::observe(CarriageObserver::class);
-        PolicyType::observe(PolicyTypeObserver::class);
         Risk::observe(RiskObserver::class);
         Transit::observe(TransitObserver::class);
         User::observe(UserObserver::class);

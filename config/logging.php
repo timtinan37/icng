@@ -68,13 +68,6 @@ return [
             'days' => env('LOG_DAYS'),
         ],
 
-        'policy-types' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/policy-types/policy-types.log'),
-            'level' => 'debug',
-            'days' => env('LOG_DAYS'),
-        ],
-
         'transits' => [
             'driver' => 'daily',
             'path' => storage_path('logs/transits/transits.log'),

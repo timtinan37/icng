@@ -23,7 +23,6 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs.index')->middleware('can:view logs');
 	Route::resource('users', 'UserController');
 	Route::resource('branches', 'BranchController');
-	Route::resource('policy-types', 'PolicyTypeController')->parameters(['policy-types' => 'policyType']);
 	Route::resource('transits', 'TransitController');
 	Route::resource('carriages', 'CarriageController');
 	Route::resource('risks', 'RiskController');
