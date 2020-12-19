@@ -49,7 +49,8 @@ class RiskController extends Controller
     public function store(RiskRequest $request)
     {
         $risk = $this->risk->create([
-            'name' => request('name')
+            'name' => request('name'),
+            'tariff' => request('tariff')
         ]);
 
         return Redirect::route('risks.show', $risk->id)->with('status', 'Risk created.');
@@ -87,7 +88,8 @@ class RiskController extends Controller
     public function update(RiskRequest $request, Risk $risk)
     {
         $risk->update([
-            'name' => request('name')
+            'name' => request('name'),
+            'tariff' => request('tariff'),
         ]);
 
         return Redirect::route('risks.show', $risk->id)->with('status', 'Risk updated.');

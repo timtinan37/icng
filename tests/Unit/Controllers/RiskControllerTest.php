@@ -81,7 +81,7 @@ class RiskControllerTest extends TestCase
         $response = $this->post(route('risks.store'));
 
         // assert
-        $response->assertSessionHasErrors(['name']);
+        $response->assertSessionHasErrors(['name', 'tariff']);
     }
 
     public function testStoreSuccess()
@@ -191,7 +191,7 @@ class RiskControllerTest extends TestCase
         $response = $this->patch(route('risks.update', 'id'));
 
         // assert
-        $response->assertSessionHasErrors(['name']);
+        $response->assertSessionHasErrors(['name', 'tariff']);
     }
 
     public function testUpdateSuccess()

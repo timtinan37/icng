@@ -11,5 +11,6 @@ class Risk extends Model
 
     protected $fillable = [
     	'name',
+    	'tariff'
     ];
 }

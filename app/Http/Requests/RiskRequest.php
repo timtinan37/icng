@@ -27,6 +27,7 @@ class RiskRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:2', 'max:255', Route::current() == route('risks.create') ? 'unique:risks' : Rule::unique('risks')->ignore(request()->route('risk'))],
+            'tariff' => ['required', 'numeric'],
         ];
     }
 }

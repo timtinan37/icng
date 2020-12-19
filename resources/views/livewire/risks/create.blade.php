@@ -7,6 +7,13 @@
       @error('name') <span class="error">{{ $message }}</span> @enderror
     </div>
   </div>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label" for="tariff">Tariff</label>
+    <div class="col-md-9">
+      <input class="form-control" wire:model="tariff" id="tariff" type="text" name="tariff" placeholder="tariff of the risk">
+      @error('tariff') <span class="error">{{ $message }}</span> @enderror
+    </div>
+  </div>
   <div class="card-footer">
     <button class="btn btn-sm btn-primary" type="submit"> Submit</button>
     <button class="btn btn-sm btn-danger" type="reset"> Reset</button>
