@@ -89,6 +89,13 @@ return [
             'days' => env('LOG_DAYS'),
         ],
 
+        'cover-notes' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/cover-notes/cover-notes.log'),
+            'level' => 'debug',
+            'days' => env('LOG_DAYS'),
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

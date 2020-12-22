@@ -26,6 +26,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'view branches']);
         Permission::create(['name' => 'update branches']);
         Permission::create(['name' => 'delete branches']);
+        
         Permission::create(['name' => 'create transits']);
         Permission::create(['name' => 'view transits']);
         Permission::create(['name' => 'update transits']);
@@ -40,5 +41,10 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'view risks']);
         Permission::create(['name' => 'update risks']);
         Permission::create(['name' => 'delete risks']);
+
+        Permission::create(['name' => 'create cover notes']);
+        Permission::create(['name' => 'view cover notes']);
+        Permission::create(['name' => 'update cover notes']);
+        Permission::create(['name' => 'delete cover notes']);
     }
 }
