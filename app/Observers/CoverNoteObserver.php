@@ -37,7 +37,7 @@ class CoverNoteObserver
      */
     public function deleted(CoverNote $coverNote)
     {
-        //
+        Log::channel('cover-notes')->info("Cover Note deleted.", ['attributes' => $coverNote->getAttributes(), 'deleted_by' => auth()->user()->name . " (user_id: " . auth()->user()->id . ")"]);
     }
 
     /**

@@ -30,7 +30,7 @@ class CoverNotePolicy
      */
     public function view(User $user, CoverNote $coverNote)
     {
-        return $user->can('view cover notes', $coverNote);
+        return $user->can('view cover notes');
     }
 
     /**
@@ -53,7 +53,7 @@ class CoverNotePolicy
      */
     public function update(User $user, CoverNote $coverNote)
     {
-        return $user->can('update cover notes', $coverNote);
+        return $user->can('update cover notes');
     }
 
     /**
@@ -65,7 +65,7 @@ class CoverNotePolicy
      */
     public function delete(User $user, CoverNote $coverNote)
     {
-        return $user->can('delete cover notes', $coverNote);
+        return $user->can('delete cover notes');
     }
 
     /**

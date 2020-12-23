@@ -40,7 +40,9 @@ class CoverNoteController extends Controller
      */
     public function index()
     {
-        //
+        $coverNotes = $this->coverNote->paginate(10);
+
+        return View::make('cover-notes.index', compact('coverNotes'));
     }
 
     /**
@@ -159,6 +161,10 @@ class CoverNoteController extends Controller
      */
     public function destroy(CoverNote $coverNote)
     {
-        //
+        $coverNote->transits()->detach();
+        $coverNote->risks()->detach();
+        $coverNote->delete();
+
+        return Redirect::route('cover-notes.index')->with('status', 'Cover Note Deleted!');
     }
 }
