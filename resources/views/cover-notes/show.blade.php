@@ -54,6 +54,16 @@
             <td>{{ $coverNote->voyage_via }}</td>
           </tr>
           <tr>
+            <th scope="row" colspan="4">Transits</th>
+            <td>
+              <ol>
+                @foreach ($coverNote->transits as $transit)
+                  <li>{{ $transit->name }}</li>
+                @endforeach
+              </ol>
+            </td>
+          </tr>
+          <tr>
             <th scope="row" colspan="4">Carriage</th>
             <td>{{ $coverNote->carriage->name }}</td>
           </tr>
@@ -84,6 +94,16 @@
           <tr>
             <th scope="row" colspan="4">Money Receipt No.</th>
             <td>{{ $coverNote->mr_no }}</td>
+          </tr>
+          <tr>
+            <th scope="row" colspan="4">Risks</th>
+            <td>
+              <ol>
+                @foreach ($coverNote->risks as $risk)
+                  <li>{{ $risk->name }} ({{ $risk->tariff }})</li>
+                @endforeach
+              </ol>
+            </td>
           </tr>
           <tr>
             <th scope="row" colspan="4">Tariff</th>
