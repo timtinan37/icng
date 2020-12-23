@@ -39,7 +39,7 @@ class CoverNote extends Model
 
     public function branch()
     {
-    	return $this->belongsTo(Branch::class);
+    	return $this->belongsTo(Branch::class, 'issuing_office_id');
     }
 
     public function policyType()
@@ -54,12 +54,17 @@ class CoverNote extends Model
 
     public function carriage()
     {
-    	return $this->belongsTo(Carraige::class);
+    	return $this->belongsTo(Carriage::class);
     }
 
     public function risks()
     {
     	return $this->belongsToMany(Risk::class);
+    }
+
+    public function issuer()
+    {
+    	return $this->belongsTo(User::class, 'issued_by');
     }
 
     public function getRisksFromInput($input)

@@ -79,11 +79,9 @@ class CoverNoteController extends Controller
         $risks = $this->coverNote->getRisksFromInput($input);
         $transits = $this->coverNote->getTransitsFromInput($input);
         $tariff = $this->coverNote->calculateTariff($risks);
-
-        $vat_amount_bdt = $amount_insured_bdt * (request('vat_rate_bdt') / 100);
-
         $net_premium_bdt = $amount_insured_bdt * ($tariff / 100);
-        $total_premium_bdt = $net_premium_bdt + $vat_amount_bdt;
+        $vat_amount_bdt = $net_premium_bdt * (request('vat_rate') / 100);
+        $total_premium_bdt = ceil($net_premium_bdt + $vat_amount_bdt + request('stamp_duty_bdt'));
 
         $coverNote = $this->coverNote->create([
             'id' => Str::uuid(),
@@ -127,7 +125,7 @@ class CoverNoteController extends Controller
      */
     public function show(CoverNote $coverNote)
     {
-        //
+        return View::make('cover-notes.show', compact('coverNote'));
     }
 
     /**
