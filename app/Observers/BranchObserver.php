@@ -37,7 +37,7 @@ class BranchObserver
      */
     public function deleted(Branch $branch)
     {
-        //
+        Log::channel('branches')->info("Branch deleted.", ['attributes' => $branch->getAttributes(), 'deleted_by' => auth()->user()->name . " (user_id: " . auth()->user()->id . ")"]);
     }
 
     /**

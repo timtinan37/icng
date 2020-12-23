@@ -27,7 +27,9 @@ class BranchController extends Controller
      */
     public function index()
     {
-        //
+        $branches = $this->branch->paginate(15);
+
+        return View::make('branches.index', compact('branches'));
     }
 
     /**
@@ -67,7 +69,7 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        // 
+        return View::make('branches.show', compact('branch'));
     }
 
     /**
@@ -109,6 +111,8 @@ class BranchController extends Controller
      */
     public function destroy(Branch $branch)
     {
-        //
+        $branch->delete();
+
+        return Redirect::route('branches.index')->with('status', 'Branch Deleted.');
     }
 }

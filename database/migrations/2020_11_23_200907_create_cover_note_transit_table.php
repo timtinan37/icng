@@ -15,7 +15,9 @@ class CreateCoverNoteTransitTable extends Migration
     {
         Schema::create('cover_note_transit', function (Blueprint $table) {
             $table->uuid('cover_note_id');
+            $table->foreign('cover_note_id')->references('id')->on('cover_notes')->onDelete('cascade');
             $table->uuid('transit_id');
+            $table->foreign('transit_id')->references('id')->on('transits')->onDelete('cascade');
         });
     }
 

@@ -1,53 +1,48 @@
 @extends('layout')
 
-@section('title', 'Cover Notes')
+@section('title', 'Branches')
 
 @section('breadcrumb')
 <ol class="breadcrumb border-0 m-0">
   <li class="breadcrumb-item">Dashboard</li>
-  <li class="breadcrumb-item active">Cover Notes</li>
+  <li class="breadcrumb-item active">Branches</li>
 </ol>
 @endsection
 
 @section('content')
 <div class="col-lg-12">
   <div class="card">
-    <div class="card-header"><i class="fa fa-align-justify"></i> Cover Notes</div>
+    <div class="card-header"><i class="fa fa-align-justify"></i> Branches</div>
     <div class="card-body">
       <table class="table table-responsive-sm table-bordered table-striped table-sm">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Insured Bank Acc. Name & Address</th>
-            <th>Amount Insured (Tk)</th>
-            <th>Period</th>
-            <th>Total Premium (Tk)</th>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
             <th>Created At</th>
             <th>Updated At</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          @foreach ($coverNotes as $coverNote)
+          @foreach ($branches as $branch)
             <tr>
-              <td><a href="{{ route('cover-notes.show', $coverNote->id) }}">{{ $coverNote->id }}</a></td>
+              <td><a href="{{ route('branches.show', $branch->id) }}">{{ $branch->id }}</a></td>
+              <td>{{ $branch->name }}</td>
+              <td>{{ $branch->phone_number }}</td>
+              <td>{{ $branch->email }}</td>
+              <td>{{ $branch->created_at }}</td>
+              <td>{{ $branch->updated_at }}</td>
               <td>
-                <b>{{ $coverNote->insured_bank_account_name }}</b><br>
-                {{ $coverNote->insured_address }}
-              </td>
-              <td>{{ $coverNote->amount_insured_bdt }}</td>
-              <td>{{ $coverNote->period_starts }} to {{ $coverNote->period_ends }}</td>
-              <td>{{ $coverNote->total_premium_bdt }}</td>
-              <td>{{ $coverNote->created_at }}</td>
-              <td>{{ $coverNote->updated_at }}</td>
-              <td>
-                @can('update cover notes')
-                  <a href="{{ route('cover-notes.edit', $coverNote->id) }}">Edit</a><br>
+                @can('update branches')
+                  <a href="{{ route('branches.edit', $branch->id) }}">Edit</a><br>
                 @endcan
-                @can('delete cover notes')
-                  <a href="#" class="text-danger" type="button" data-toggle="modal" data-target="#dangerModal{{ $coverNote->id }}">Delete</a>
+                @can('delete branches')
+                  <a href="#" class="text-danger" type="button" data-toggle="modal" data-target="#dangerModal{{ $branch->id }}">Delete</a>
 
-                  <div class="modal fade" id="dangerModal{{ $coverNote->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteCoverNote" style="display: none;" aria-hidden="true">
+                  <div class="modal fade" id="dangerModal{{ $branch->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteCoverNote" style="display: none;" aria-hidden="true">
                     <div class="modal-dialog modal-danger" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -55,10 +50,10 @@
                           <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-body">
-                          <p>This action will delete cover note {{ $coverNote->id }}. Are you sure?</p>
+                          <p>This action will delete branch {{ $branch->id }}. Are you sure?</p>
                         </div>
                         <div class="modal-footer">
-                          <form method="POST" action="{{ route('cover-notes.destroy', $coverNote->id) }}">
+                          <form method="POST" action="{{ route('branches.destroy', $branch->id) }}">
                             @method('DELETE')
                             @csrf
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
@@ -76,7 +71,7 @@
           @endforeach
         </tbody>
       </table>
-      {{ $coverNotes->links() }}
+      {{ $branches->links() }}
     </div>
   </div>
 </div>

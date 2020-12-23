@@ -15,7 +15,9 @@ class CreateCoverNoteRiskTable extends Migration
     {
         Schema::create('cover_note_risk', function (Blueprint $table) {
             $table->uuid('cover_note_id');
+            $table->foreign('cover_note_id')->references('id')->on('cover_notes')->onDelete('cascade');
             $table->uuid('risk_id');
+            $table->foreign('risk_id')->references('id')->on('risks')->onDelete('cascade');
         });
     }
 

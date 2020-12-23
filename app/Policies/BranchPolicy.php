@@ -18,7 +18,7 @@ class BranchPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->can('view branches');
     }
 
     /**
@@ -30,7 +30,7 @@ class BranchPolicy
      */
     public function view(User $user, Branch $branch)
     {
-        return $user->can('view branches', $branch);
+        return $user->can('view branches');
     }
 
     /**
@@ -53,7 +53,7 @@ class BranchPolicy
      */
     public function update(User $user, Branch $branch)
     {
-        return $user->can('update branches', $branch);
+        return $user->can('update branches');
     }
 
     /**
@@ -65,7 +65,7 @@ class BranchPolicy
      */
     public function delete(User $user, Branch $branch)
     {
-        //
+        return $user->can('delete branches');
     }
 
     /**

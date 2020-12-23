@@ -136,7 +136,9 @@
         </tbody>
       </table>
       <hr>
-      <a href="{{ route('cover-notes.edit', $coverNote->id) }}"><button class="btn btn-primary">Edit</button></a>
+      @can('update cover notes')
+        <a href="{{ route('cover-notes.edit', $coverNote->id) }}"><button class="btn btn-primary">Edit</button></a>
+      @endcan
     </div>
   </div>
 </div>
