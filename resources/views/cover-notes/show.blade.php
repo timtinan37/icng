@@ -18,7 +18,7 @@
       <table class="table table-responsive table-borderless">
         <tbody>
           <tr>
-            <th scope="row" colspan="4">id</th>
+            <th scope="row" colspan="4">Id</th>
             <td>{{ $coverNote->id }}</td>
           </tr>
           <tr>
@@ -76,7 +76,7 @@
             <td>{{ $coverNote->amount_insured_tolerance }}</td>
           </tr>
           <tr>
-            <th scope="row" colspan="4">USD to BDT Rate</th>
+            <th scope="row" colspan="4">USD to BDT Rate (Tk)</th>
             <td>{{ $coverNote->usd_to_bdt_rate }}</td>
           </tr>
           <tr>
@@ -135,6 +135,8 @@
           </tr>
         </tbody>
       </table>
+      <hr>
+      <a href="{{ route('cover-notes.edit', $coverNote->id) }}"><button class="btn btn-primary">Edit</button></a>
     </div>
   </div>
 </div>

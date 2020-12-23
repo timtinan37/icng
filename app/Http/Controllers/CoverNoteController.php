@@ -8,7 +8,6 @@ use App\Models\Carriage;
 use App\Models\Risk;
 use App\Models\Transit;
 use App\Http\Requests\CoverNoteRequest;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\{
     View,
     Redirect
@@ -68,53 +67,10 @@ class CoverNoteController extends Controller
      */
     public function store(CoverNoteRequest $request)
     {
-        $amount_insured_bdt = 
-        (
-            request('amount_insured_usd') + 
-            (
-                request('amount_insured_usd') * (request('amount_insured_tolerance') / 100)
-            )
-        ) * 
-        request('usd_to_bdt_rate');
-
-        $input = request()->except('_token');
-        $risks = $this->coverNote->getRisksFromInput($input);
-        $transits = $this->coverNote->getTransitsFromInput($input);
-        $tariff = $this->coverNote->calculateTariff($risks);
-        $net_premium_bdt = $amount_insured_bdt * ($tariff / 100);
-        $vat_amount_bdt = $net_premium_bdt * (request('vat_rate') / 100);
-        $total_premium_bdt = ceil($net_premium_bdt + $vat_amount_bdt + request('stamp_duty_bdt'));
-
-        $coverNote = $this->coverNote->create([
-            'id' => Str::uuid(),
-            'issuing_office_id' => request('issuing_office_id'),
-            'insured_bank_address' => request('insured_bank_address'),
-            'insured_bank_account_name' => request('insured_bank_account_name'),
-            'insured_address' => request('insured_address'),
-            'interest_covered' => request('interest_covered'),
-            'voyage_from' => request('voyage_from'),
-            'voyage_to' => request('voyage_to'),
-            'voyage_via' => request('voyage_via'),
-            'carriage_id' => request('carriage_id'),
-            'amount_insured_usd' => request('amount_insured_usd'),
-            'amount_insured_tolerance' => request('amount_insured_tolerance'),
-            'usd_to_bdt_rate' => request('usd_to_bdt_rate'),
-            'amount_insured_bdt' => $amount_insured_bdt,
-            'tk_in_word' => request('tk_in_word'),
-            'period_starts' => request('period_starts'),
-            'period_ends' => request('period_ends'),
-            'mr_no' => request('mr_no'),
-            'tariff' => $tariff,
-            'net_premium_bdt' => $net_premium_bdt,
-            'vat_rate' => request('vat_rate'),
-            'vat_amount_bdt' => $vat_amount_bdt,
-            'stamp_duty_bdt' => request('stamp_duty_bdt'),
-            'total_premium_bdt' => $total_premium_bdt,
-            'issued_by' => auth()->user()->id
-        ]);
-
-        $coverNote->risks()->attach($risks);
-        $coverNote->transits()->attach($transits);
+        $preparedDataArray = $this->coverNote->prepareDataForInsertion($request);
+        $coverNote = $this->coverNote->create($preparedDataArray['dataToInsert']);
+        $coverNote->risks()->attach($preparedDataArray['risks']);
+        $coverNote->transits()->attach($preparedDataArray['transits']);
 
         return Redirect::route('cover-notes.show', $coverNote->id)->with('status', 'Cover Note created!');
     }
@@ -138,7 +94,12 @@ class CoverNoteController extends Controller
      */
     public function edit(CoverNote $coverNote)
     {
-        return View::make('cover-notes.edit', compact('coverNote'));
+        $branches = $this->branch->all();
+        $carriages = $this->carriage->all();
+        $risks = $this->risk->all();
+        $transits = $this->transit->all();
+
+        return View::make('cover-notes.edit', compact('coverNote', 'branches', 'carriages', 'risks', 'transits'));
     }
 
     /**
@@ -150,7 +111,12 @@ class CoverNoteController extends Controller
      */
     public function update(CoverNoteRequest $request, CoverNote $coverNote)
     {
-        //
+        $preparedDataArray = $this->coverNote->prepareDataForInsertion($request);
+        $coverNote->update($preparedDataArray['dataToInsert']);
+        $coverNote->risks()->sync($preparedDataArray['risks']);
+        $coverNote->transits()->sync($preparedDataArray['transits']);
+
+        return Redirect::route('cover-notes.show', $coverNote->id)->with('status', 'Cover Note upated!');
     }
 
     /**
