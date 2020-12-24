@@ -30,7 +30,7 @@ class CarriagePolicy
      */
     public function view(User $user, Carriage $carriage)
     {
-        return $user->can('view carriages', $carriage);
+        return $user->can('view carriages');
     }
 
     /**
@@ -53,7 +53,7 @@ class CarriagePolicy
      */
     public function update(User $user, Carriage $carriage)
     {
-        return $user->can('update carriages', $carriage);
+        return $user->can('update carriages');
     }
 
     /**
@@ -65,7 +65,7 @@ class CarriagePolicy
      */
     public function delete(User $user, Carriage $carriage)
     {
-        return $user->can('delete carriages', $carriage);
+        return $user->can('delete carriages');
     }
 
     /**
