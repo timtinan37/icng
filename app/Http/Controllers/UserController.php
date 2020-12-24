@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Permission;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\{
     Hash,
@@ -13,10 +14,12 @@ use Illuminate\Support\Facades\{
 class UserController extends Controller
 {
     private $user;
+    private $permission;
     
-    function __construct(User $user)
+    function __construct(User $user, Permission $permission)
     {
         $this->user = $user;
+        $this->permission = $permission;
 
         $this->authorizeResource(User::class, 'user');
     }
@@ -111,5 +114,34 @@ class UserController extends Controller
         $user->delete();
 
         return Redirect::route('users.index')->with('status', 'User deleted.');
+    }
+
+    /**
+     * Show all permission of a user
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function showPermissions(User $user)
+    {
+        $permissions = $this->permission->all();
+
+        return View::make('users.permissions', compact('permissions', 'user'));
+    }
+
+    /**
+     * Give permissions to a user
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function givePermissions(User $user)
+    {
+        $permissions = request()->except('_token');
+        $user->syncPermissions($permissions);
+
+        return Redirect::route('users.showPermissions', $user)->with('status', 'Permission settings updated.');
     }
 }

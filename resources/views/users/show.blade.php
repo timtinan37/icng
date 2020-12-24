@@ -45,6 +45,7 @@
       <hr>
       @can('update users')
         <a href="{{ route('users.edit', $user->id) }}"><button class="btn btn-primary">Edit</button></a>
+        <a href="{{ route('users.showPermissions', $user->id) }}"><button class="btn btn-primary">Permission Settings</button></a>
       @endcan
     </div>
   </div>
