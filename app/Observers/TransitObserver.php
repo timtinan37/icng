@@ -38,7 +38,7 @@ class TransitObserver
      */
     public function deleted(Transit $transit)
     {
-        //
+        Log::channel('transits')->info("Transit deleted.", ['attributes' => $transit->getAttributes(), 'deleted_by' => auth()->user()->name . " (user_id: " . auth()->user()->id . ")"]);
     }
 
     /**

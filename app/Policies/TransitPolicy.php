@@ -30,7 +30,7 @@ class TransitPolicy
      */
     public function view(User $user, Transit $transit)
     {
-        return $user->can('view transits', $transit);
+        return $user->can('view transits');
     }
 
     /**
@@ -53,7 +53,7 @@ class TransitPolicy
      */
     public function update(User $user, Transit $transit)
     {
-        return $user->can('update transits', $transit);
+        return $user->can('update transits');
     }
 
     /**
@@ -65,7 +65,7 @@ class TransitPolicy
      */
     public function delete(User $user, Transit $transit)
     {
-        //
+        return $user->can('delete transits');
     }
 
     /**

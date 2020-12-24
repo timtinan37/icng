@@ -27,7 +27,9 @@ class TransitController extends Controller
      */
     public function index()
     {
-        //
+        $transits = $this->transit->paginate(10);
+
+        return View::make('transits.index', compact('transits'));
     }
 
     /**
@@ -63,7 +65,7 @@ class TransitController extends Controller
      */
     public function show(Transit $transit)
     {
-        //
+        return View::make('transits.show', compact('transit'));
     }
 
     /**
@@ -101,6 +103,8 @@ class TransitController extends Controller
      */
     public function destroy(Transit $transit)
     {
-        //
+        $transit->delete();
+
+        return Redirect::route('transits.index')->with('status', 'Transit deleted.');
     }
 }

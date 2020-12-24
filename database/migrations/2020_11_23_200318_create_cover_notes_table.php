@@ -15,8 +15,8 @@ class CreateCoverNotesTable extends Migration
     {
         Schema::create('cover_notes', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('issuing_office_id');
-            $table->foreign('issuing_office_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->uuid('issuing_office_id')->nullable();
+            $table->foreign('issuing_office_id')->references('id')->on('branches')->onDelete('set null');
             $table->text('insured_bank_address');
             $table->string('insured_bank_account_name');
             $table->text('insured_address');
@@ -24,8 +24,8 @@ class CreateCoverNotesTable extends Migration
             $table->string('voyage_from');
             $table->string('voyage_to');
             $table->string('voyage_via');
-            $table->uuid('carriage_id');
-            $table->foreign('carriage_id')->references('id')->on('carriages')->onDelete('cascade');
+            $table->uuid('carriage_id')->nullable();
+            $table->foreign('carriage_id')->references('id')->on('carriages')->onDelete('set null');
             $table->string('amount_insured_usd');
             $table->string('amount_insured_tolerance');
             $table->string('usd_to_bdt_rate');
@@ -39,8 +39,8 @@ class CreateCoverNotesTable extends Migration
             $table->string('vat_amount_bdt');
             $table->string('stamp_duty_bdt');
             $table->string('total_premium_bdt');
-            $table->uuid('issued_by');
-            $table->foreign('issued_by')->references('id')->on('users')->onDelete('cascade');
+            $table->uuid('issued_by')->nullable();
+            $table->foreign('issued_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }
