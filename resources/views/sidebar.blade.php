@@ -15,6 +15,9 @@
           <use xlink:href="{{ asset('/coreui/vendors/@coreui/icons/svg/free.svg#cil-star') }}"></use>
         </svg> Users</a>
         <ul class="c-sidebar-nav-dropdown-items">
+          @can('view users')
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('users.index') }}"><span class="c-sidebar-nav-icon"></span> List</a></li>
+          @endcan
           @can('create users')
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('users.create') }}"><span class="c-sidebar-nav-icon"></span> Create</a></li>
           @endcan

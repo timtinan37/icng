@@ -28,7 +28,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = $this->user->paginate(1);
+
+        return View::make('users.index', compact('users'));
     }
 
     /**
@@ -66,7 +68,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return View::make('users.show', compact('user'));
     }
 
     /**
@@ -106,6 +108,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return Redirect::route('users.index')->with('status', 'User deleted.');
     }
 }

@@ -37,7 +37,7 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        //
+        Log::channel('users')->info("User account deleted for $user->name.", ['email' => $user->email, 'user_id' => $user->id, 'deleted_by' => auth()->user()->name . " (user_id: " . auth()->user()->id . ")"]);
     }
 
     /**
