@@ -36,6 +36,7 @@
               <td>
                 @can('update users')
                   <a href="{{ route('users.edit', $user->id) }}">Edit</a><br>
+                  <a href="{{ route('users.showPermissions', $user->id) }}">Permission Settings</a><br>
                 @endcan
                 @can('delete users')
                   <a href="#" class="text-danger" type="button" data-toggle="modal" data-target="#dangerModal{{ $user->id }}">Delete</a>

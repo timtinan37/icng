@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\{
     Hash,
     Redirect,
     View,
+    Log,
 };
 
 class UserController extends Controller
@@ -31,7 +32,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->user->paginate(1);
+        $users = $this->user->paginate(10);
 
         return View::make('users.index', compact('users'));
     }
@@ -139,8 +140,11 @@ class UserController extends Controller
     
     public function givePermissions(User $user)
     {
-        $permissions = request()->except('_token');
-        $user->syncPermissions($permissions);
+        $newPermissions = request()->except('_token');
+        $oldPermissions = $user->permissions;
+        $user->syncPermissions($newPermissions);
+
+        Log::channel('users')->info("User account permissions updated for $user->name.", ['email' => $user->email, 'user_id' => $user->id, 'updated_by' => auth()->user()->name . " (user_id: " . auth()->user()->id . ")", 'old_permissions' => $oldPermissions->pluck('name'), 'new_permissions' => $user->permissions->pluck('name')]);
 
         return Redirect::route('users.showPermissions', $user)->with('status', 'Permission settings updated.');
     }
