@@ -20,7 +20,7 @@ class Edit extends Component
 	protected function rules()
 	{
 		return [
-        	'name' => ['required', 'string', 'min:2', 'max:255', Rule::unique('risks')->ignore($this->risk)]
+        	'name' => ['required', 'string', 'min:2', 'max:255', Rule::unique('risks')->ignore($this->risk)],
             'tariff' => ['required', 'numeric'],
         ];
 	}

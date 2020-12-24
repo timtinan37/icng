@@ -30,7 +30,7 @@ class RiskPolicy
      */
     public function view(User $user, Risk $risk)
     {
-        return $user->can('view risks', $risk);
+        return $user->can('view risks');
     }
 
     /**
@@ -53,7 +53,7 @@ class RiskPolicy
      */
     public function update(User $user, Risk $risk)
     {
-        return $user->can('update risks', $risk);
+        return $user->can('update risks');
     }
 
     /**
@@ -65,7 +65,7 @@ class RiskPolicy
      */
     public function delete(User $user, Risk $risk)
     {
-        return $user->can('delete risks', $risk);
+        return $user->can('delete risks');
     }
 
     /**

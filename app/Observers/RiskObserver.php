@@ -37,7 +37,7 @@ class RiskObserver
      */
     public function deleted(Risk $risk)
     {
-        //
+        Log::channel('risks')->info("Risk deleted.", ['attributes' => $risk->getAttributes(), 'deleted_by' => auth()->user()->name . " (user_id: " . auth()->user()->id . ")"]);        
     }
 
     /**

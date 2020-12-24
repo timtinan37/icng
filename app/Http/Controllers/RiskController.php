@@ -27,7 +27,9 @@ class RiskController extends Controller
      */
     public function index()
     {
-        //
+        $risks = $this->risk->paginate(10);
+
+        return View::make('risks.index', compact('risks'));
     }
 
     /**
@@ -64,7 +66,7 @@ class RiskController extends Controller
      */
     public function show(Risk $risk)
     {
-        //
+        return View::make('risks.show', compact('risk'));
     }
 
     /**
@@ -103,6 +105,8 @@ class RiskController extends Controller
      */
     public function destroy(Risk $risk)
     {
-        //
+        $risk->delete();
+
+        return Redirect::route('risks.index')->with('status', 'Risk deleted.');
     }
 }
