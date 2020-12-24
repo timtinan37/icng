@@ -27,7 +27,9 @@ class CarriageController extends Controller
      */
     public function index()
     {
-        //
+        $carriages = $this->carriage->paginate(10);
+
+        return View::make('carriages.index', compact('carriages'));
     }
 
     /**
@@ -63,7 +65,7 @@ class CarriageController extends Controller
      */
     public function show(Carriage $carriage)
     {
-        //
+        return View::make('carriages.show', compact('carriage'));
     }
 
     /**
@@ -101,6 +103,8 @@ class CarriageController extends Controller
      */
     public function destroy(Carriage $carriage)
     {
-        //
+        $carriage->delete();
+
+        return Redirect::route('carriages.index')->with('status', 'Carriage deleted.');
     }
 }

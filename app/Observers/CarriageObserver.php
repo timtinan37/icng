@@ -37,7 +37,7 @@ class CarriageObserver
      */
     public function deleted(Carriage $carriage)
     {
-        //
+        Log::channel('carriages')->info("Carriage deleted.", ['attributes' => $carriage->getAttributes(), 'deleted_by' => auth()->user()->name . " (user_id: " . auth()->user()->id . ")"]);
     }
 
     /**
