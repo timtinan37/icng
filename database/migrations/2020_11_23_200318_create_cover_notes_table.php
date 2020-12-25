@@ -25,7 +25,7 @@ class CreateCoverNotesTable extends Migration
             $table->string('voyage_to');
             $table->string('voyage_via');
             $table->uuid('carriage_id')->nullable();
-            $table->foreign('carriage_id')->references('id')->on('carriages')->onDelete('set null');
+            $table->foreign('carriage_id')->references('id')->on('transits')->onDelete('set null');
             $table->string('amount_insured_usd');
             $table->string('amount_insured_tolerance');
             $table->string('usd_to_bdt_rate');

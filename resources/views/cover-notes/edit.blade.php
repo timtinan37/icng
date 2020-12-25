@@ -19,7 +19,7 @@
   <div class="card">
     <div class="card-header">Edit<strong> Cover Note</strong></div>
     <div class="card-body">
-      <livewire:cover-notes.edit :coverNote="$coverNote" :branches="$branches" :carriages="$carriages" :risks="$risks" :transits="$transits" />
+      <livewire:cover-notes.edit :coverNote="$coverNote" :branches="$branches" :risks="$risks" :transits="$transits" />
     </div>
   </div>
 </div>

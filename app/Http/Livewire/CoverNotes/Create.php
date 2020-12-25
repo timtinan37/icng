@@ -7,7 +7,6 @@ use Livewire\Component;
 class Create extends Component
 {
     public $branches;
-    public $carriages;
     public $risks;
     public $transits;
 	public $insured_bank_address;

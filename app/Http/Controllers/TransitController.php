@@ -65,6 +65,11 @@ class TransitController extends Controller
      */
     public function show(Transit $transit)
     {
+        if (request('ajax') == '1')
+        {
+            return $transit;
+        }
+        
         return View::make('transits.show', compact('transit'));
     }
 

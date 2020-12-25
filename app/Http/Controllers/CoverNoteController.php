@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\CoverNote;
 use App\Models\Branch;
-use App\Models\Carriage;
 use App\Models\Risk;
 use App\Models\Transit;
 use App\Http\Requests\CoverNoteRequest;
@@ -16,15 +15,13 @@ use Illuminate\Support\Facades\{
 class CoverNoteController extends Controller
 {
     private $branch;
-    private $carriage;
     private $coverNote;
     private $risk;
     private $transit;
 
-    function __construct(CoverNote $coverNote, Branch $branch, Carriage $carriage, Risk $risk, Transit $transit)
+    function __construct(CoverNote $coverNote, Branch $branch, Risk $risk, Transit $transit)
     {
         $this->branch = $branch;
-        $this->carriage = $carriage;
         $this->coverNote = $coverNote;
         $this->risk = $risk;
         $this->transit = $transit;
@@ -52,11 +49,10 @@ class CoverNoteController extends Controller
     public function create()
     {
         $branches = $this->branch->all();
-        $carriages = $this->carriage->all();
         $risks = $this->risk->all();
         $transits = $this->transit->all();
 
-        return View::make('cover-notes.create', compact('branches', 'carriages', 'risks', 'transits'));
+        return View::make('cover-notes.create', compact('branches', 'risks', 'transits'));
     }
 
     /**
@@ -95,11 +91,10 @@ class CoverNoteController extends Controller
     public function edit(CoverNote $coverNote)
     {
         $branches = $this->branch->all();
-        $carriages = $this->carriage->all();
         $risks = $this->risk->all();
         $transits = $this->transit->all();
 
-        return View::make('cover-notes.edit', compact('coverNote', 'branches', 'carriages', 'risks', 'transits'));
+        return View::make('cover-notes.edit', compact('coverNote', 'branches', 'risks', 'transits'));
     }
 
     /**

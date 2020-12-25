@@ -19,7 +19,7 @@
   <div class="card">
     <div class="card-header">Create<strong> Cover Note</strong></div>
     <div class="card-body">
-      <livewire:cover-notes.create :branches="$branches" :carriages="$carriages" :risks="$risks" :transits="$transits" />
+      <livewire:cover-notes.create :branches="$branches" :risks="$risks" :transits="$transits" />
     </div>
   </div>
 </div>
@@ -27,4 +27,7 @@
 
 @section('tail-scripts')
   @livewireScripts
+<script src="{{ asset('js/cover-notes/manifest.js') }}"></script>
+<script src="{{ asset('js/cover-notes/vendor.js') }}"></script>
+<script src="{{ asset('js/cover-notes/app.js') }}"></script>
 @endsection

@@ -55,7 +55,7 @@ class CoverNote extends Model
 
     public function carriage()
     {
-    	return $this->belongsTo(Carriage::class);
+    	return $this->belongsTo(Transit::class, 'carriage_id');
     }
 
     public function risks()

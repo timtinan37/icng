@@ -26,7 +26,6 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::resource('users', 'UserController');
 	Route::resource('branches', 'BranchController');
 	Route::resource('transits', 'TransitController');
-	Route::resource('carriages', 'CarriageController');
 	Route::resource('risks', 'RiskController');
 	Route::resource('cover-notes', 'CoverNoteController')->parameters(['cover-notes' => 'coverNote']);
 });

@@ -3,13 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Branch;
-use App\Models\Carriage;
 use App\Models\CoverNote;
 use App\Models\Risk;
 use App\Models\Transit;
 use App\Models\User;
 use App\Observers\BranchObserver;
-use App\Observers\CarriageObserver;
 use App\Observers\CoverNoteObserver;
 use App\Observers\RiskObserver;
 use App\Observers\TransitObserver;
@@ -39,7 +37,6 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         Branch::observe(BranchObserver::class);
-        Carriage::observe(CarriageObserver::class);
         CoverNote::observe(CoverNoteObserver::class);    
         Risk::observe(RiskObserver::class);
         Transit::observe(TransitObserver::class);

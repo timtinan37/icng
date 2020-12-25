@@ -60,12 +60,14 @@
       @error('voyage_via') <span class="error">{{ $message }}</span> @enderror
     </div>
   </div>
+
+<div id="transportation">
   <div class="form-group row">
     <label class="col-md-3 col-form-label">Transits</label>
     <div class="col-md-9 col-form-label">
       @foreach ($transits as $transit)
         <div class="form-check form-check-inline mr-1">
-          <input class="form-check-input" id="{{ $transit->id }}" name="transit{{ $transit->id }}" type="checkbox" value="{{ $transit->id }}">
+          <input class="form-check-input" id="{{ $transit->id }}" name="transit{{ $transit->id }}" type="checkbox" value="{{ $transit->id }}" v-model="checkedTransits">
           <label class="form-check-label" for="{{ $transit->id }}">{{ $transit->name }}</label>
         </div>
       @endforeach
@@ -75,14 +77,14 @@
     <label class="col-md-3 col-form-label" for="carriage_id">Carriage</label>
     <div class="col-md-9">
       <select class="form-control" id="carriage_id" name="carriage_id" autocomplete="off">
-        <option value="" hidden selected>Please Select</option>
-        @foreach ($carriages as $carriage)
-          <option value="{{ $carriage->id }}">{{ $carriage->name }}</option>
-        @endforeach
+        <option v-for="carriageOption in carriageOptions" :key="carriageOption.id" v-bind:value="carriageOption.id">
+          @{{ carriageOption.name }}
+        </option>
       </select>
       @error('carriage_id') <span class="error">{{ $message }}</span> @enderror
     </div>
   </div>
+</div>
   <div class="form-group row">
     <label class="col-md-3 col-form-label">Risks</label>
     <div class="col-md-9 col-form-label">

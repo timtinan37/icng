@@ -75,13 +75,6 @@ return [
             'days' => env('LOG_DAYS'),
         ],
 
-        'carriages' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/carriages/carriages.log'),
-            'level' => 'debug',
-            'days' => env('LOG_DAYS'),
-        ],
-
         'risks' => [
             'driver' => 'daily',
             'path' => storage_path('logs/risks/risks.log'),

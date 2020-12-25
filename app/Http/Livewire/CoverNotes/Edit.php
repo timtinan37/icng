@@ -8,7 +8,6 @@ class Edit extends Component
 {
     public $coverNote;
     public $branches;
-    public $carriages;
     public $risks;
     public $transits;
     public $insured_bank_address;
