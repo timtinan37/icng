@@ -27,4 +27,15 @@
 
 @section('tail-scripts')
   @livewireScripts
+  <script src="{{ asset('js/cover-notes/edit/manifest.js') }}"></script>
+  <script src="{{ asset('js/cover-notes/edit/vendor.js') }}"></script>
+  <script src="{{ asset('js/cover-notes/edit/edit.js') }}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      setTimeout(()=>{
+        document.getElementById("{{ $coverNote->carriage_id }}carriage").setAttribute("selected", "");
+      }, 1200);
+    });
+  </script>
 @endsection

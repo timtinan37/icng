@@ -1,4 +1,6 @@
-window.Vue = require('vue');
+import Vue from 'vue'
+import 'livewire-vue'
+window.Vue = Vue;
 window._ = require('lodash');
 
 /**

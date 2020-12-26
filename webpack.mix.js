@@ -11,5 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js/cover-notes')
-    .extract(['vue'])
+// mix.js('resources/js/cover-notes/create.js', 'public/js/cover-notes/create').extract(['vue'])
+
+mix.js('resources/js/cover-notes/edit.js', 'public/js/cover-notes/edit').extract(['vue'])

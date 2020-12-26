@@ -24,7 +24,7 @@ class CoverNoteRequest extends FormRequest
     public function rules()
     {
         return [
-            'issuing_office_id' => ['required', 'string'],
+            'issuing_office' => ['required', 'string'],
             'insured_bank_address' => ['required', 'string', 'min:10', 'max:255'],
             'insured_bank_account_name' => ['required', 'string', 'max:255'],
             'insured_address' => ['required', 'string', 'min:10', 'max:255'],

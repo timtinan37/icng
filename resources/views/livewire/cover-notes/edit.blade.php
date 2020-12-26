@@ -60,26 +60,28 @@
       @error('voyage_via') <span class="error">{{ $message }}</span> @enderror
     </div>
   </div>
-  <div class="form-group row">
-    <label class="col-md-3 col-form-label">Transits</label>
-    <div class="col-md-9 col-form-label">
-      @foreach ($transits as $transit)
-        <div class="form-check form-check-inline mr-1">
-          <input class="form-check-input" id="{{ $transit->id }}" name="transit{{ $transit->id }}" type="checkbox" @if ($coverNote->transits->contains($transit->id)) checked @endif value="{{ $transit->id }}">
-          <label class="form-check-label" for="{{ $transit->id }}">{{ $transit->name }}</label>
-        </div>
-      @endforeach
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-md-3 col-form-label" for="carriage_id">Carriage</label>
-    <div class="col-md-9">
-      <select class="form-control" id="carriage_id" name="carriage_id" autocomplete="off">
-        @foreach ($carriages as $carriage)
-          <option value="{{ $carriage->id }}" @if ($carriage->id == $coverNote->carriage->id) "selected" @endif>{{ $carriage->name }}</option>
+  <div id="transportation">
+    <transportation v-on:init-transits="initTransits({{ $coverNote->transits->pluck('id') }})"></transportation>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label">Transits</label>
+      <div class="col-md-9 col-form-label">
+        @foreach ($transits as $transit)
+          <div class="form-check form-check-inline mr-1">
+            <input class="form-check-input" id="{{ $transit->id }}" name="transit{{ $transit->id }}" type="checkbox" value="{{ $transit->id }}" v-model="checkedTransits">
+            <label class="form-check-label" for="{{ $transit->id }}">{{ $transit->name }}</label>
+          </div>
         @endforeach
-      </select>
-      @error('carriage_id') <span class="error">{{ $message }}</span> @enderror
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="carriage_id">Carriage</label>
+      <div class="col-md-9">
+        <select class="form-control" id="carriage_id" name="carriage_id" autocomplete="off">
+          <option v-for="(carriageOption, index) in carriageOptions" :id="carriageOption.id+'carriage'" :key="index+10" v-bind:value="carriageOption.id">
+            @{{ carriageOption.name }}
+          </option>
+        </select>
+      </div>
     </div>
   </div>
   <div class="form-group row">

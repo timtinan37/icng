@@ -9,6 +9,7 @@ class Create extends Component
     public $branches;
     public $risks;
     public $transits;
+    public $issuing_office;
 	public $insured_bank_address;
 	public $insured_bank_account_name;
 	public $insured_address;
@@ -26,6 +27,7 @@ class Create extends Component
     protected function rules()
     {
         return [
+            'issuing_office' => ['required', 'string'],
             'insured_bank_address' => ['required', 'string', 'min:10', 'max:255'],
             'insured_bank_account_name' => ['required', 'string', 'max:255'],
             'insured_address' => ['required', 'string', 'min:10', 'max:255'],

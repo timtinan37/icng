@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/cover-notes/vendor"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/cover-notes/create/vendor"],{
 
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\

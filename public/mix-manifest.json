@@ -1,5 +1,5 @@
 {
-    "/js/cover-notes/app.js": "/js/cover-notes/app.js",
-    "/js/cover-notes/manifest.js": "/js/cover-notes/manifest.js",
-    "/js/cover-notes/vendor.js": "/js/cover-notes/vendor.js"
+    "/js/cover-notes/edit/edit.js": "/js/cover-notes/edit/edit.js",
+    "/js/cover-notes/edit/manifest.js": "/js/cover-notes/edit/manifest.js",
+    "/js/cover-notes/edit/vendor.js": "/js/cover-notes/edit/vendor.js"
 }

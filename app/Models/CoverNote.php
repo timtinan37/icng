@@ -120,7 +120,7 @@ class CoverNote extends Model
             'transits' => $transits,
             'dataToInsert' => [
                 'id' => Str::uuid(),
-                'issuing_office_id' => $request->input('issuing_office_id'),
+                'issuing_office_id' => $request->input('issuing_office'),
                 'insured_bank_address' => $request->input('insured_bank_address'),
                 'insured_bank_account_name' => $request->input('insured_bank_account_name'),
                 'insured_address' => $request->input('insured_address'),

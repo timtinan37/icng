@@ -27,7 +27,7 @@
 
 @section('tail-scripts')
   @livewireScripts
-<script src="{{ asset('js/cover-notes/manifest.js') }}"></script>
-<script src="{{ asset('js/cover-notes/vendor.js') }}"></script>
-<script src="{{ asset('js/cover-notes/app.js') }}"></script>
+  <script src="{{ asset('js/cover-notes/create/manifest.js') }}"></script>
+  <script src="{{ asset('js/cover-notes/create/vendor.js') }}"></script>
+  <script src="{{ asset('js/cover-notes/create/create.js') }}"></script>
 @endsection

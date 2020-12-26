@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/cover-notes/app"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/cover-notes/edit/edit"],{
 
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
@@ -1809,6 +1809,23 @@ module.exports = {
   extend: extend,
   trim: trim
 };
+
+
+/***/ }),
+
+/***/ "./node_modules/livewire-vue/dist/livewire-vue.js":
+/*!********************************************************!*\
+  !*** ./node_modules/livewire-vue/dist/livewire-vue.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function(e){ true?!(__WEBPACK_AMD_DEFINE_FACTORY__ = (e),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):undefined}((function(){"use strict";if(void 0===window.livewire)throw"Livewire Vue Plugin: window.livewire is undefined. Make sure @livewireScripts is placed above this script include";window.livewire.hook("message.received",(e,i)=>{if(!window.Vue)return;if(!e.response.effects.html)return;const n=document.createElement("div");n.innerHTML=e.response.effects.html,(new window.Vue).$mount(n.firstElementChild),e.response.effects.html=n.firstElementChild.outerHTML}),window.livewire.hook("element.initialized",e=>{e.__vue__&&(e.__livewire_ignore=!0)}),window.livewire.hook("interceptWireModelSetValue",(e,i)=>{if(!i.__vue__)return;const n=window.Vue.config.silent;window.Vue.config.silent=!0,i.__vue__.$props.value=e,window.Vue.config.silent=n}),window.livewire.hook("interceptWireModelAttachListener",(e,i,n,t)=>{if(!e.__vue__)return;const o=i.modifiers.includes("debounce"),r=i.modifiers.includes("lazy");e.__vue__.$on("input",t(o||!r,e=>{const t=i.value,o=e;n.set(t,o)},i.durationOr(150)))})}));
+//# sourceMappingURL=livewire-vue.js.map
 
 
 /***/ }),
@@ -19510,32 +19527,22 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes React and other helpers. It's a great starting point while
- * building robust, powerful web applications using React + Laravel.
- */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-__webpack_require__(/*! ./components/Transports */ "./resources/js/components/Transports.js");
-
-/***/ }),
-
 /***/ "./resources/js/bootstrap.js":
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
   \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var livewire_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! livewire-vue */ "./node_modules/livewire-vue/dist/livewire-vue.js");
+/* harmony import */ var livewire_vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(livewire_vue__WEBPACK_IMPORTED_MODULE_1__);
+
+
+window.Vue = vue__WEBPACK_IMPORTED_MODULE_0___default.a;
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -19548,13 +19555,23 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/components/Transports.js":
-/*!***********************************************!*\
-  !*** ./resources/js/components/Transports.js ***!
-  \***********************************************/
+/***/ "./resources/js/cover-notes/edit.js":
+/*!******************************************!*\
+  !*** ./resources/js/cover-notes/edit.js ***!
+  \******************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
+
+Vue.component('transportation', {
+  props: ['carriageOptions'],
+  created: function created() {
+    this.$emit('init-transits');
+    this.$emit('init-carriage');
+  },
+  template: '<span></span>'
+});
 new Vue({
   el: '#transportation',
   data: {
@@ -19562,17 +19579,16 @@ new Vue({
     carriageOptions: []
   },
   methods: {
+    initTransits: function initTransits(checkedTransits) {
+      this.checkedTransits = checkedTransits;
+    },
     getCarriages: function getCarriages() {
-      var carriageOptions = this.carriageOptions;
+      var vm = this;
       this.checkedTransits.forEach(function (element) {
-        axios.get("/transits/".concat(element), {
-          params: {
-            'ajax': 1
-          }
-        }).then(function (response) {
-          carriageOptions.push({
-            'name': response.data.name,
-            'id': response.data.id
+        axios.get("/transits/".concat(element, "?ajax=1")).then(function (response) {
+          vm.carriageOptions.push({
+            name: response.data.name,
+            id: response.data.id
           });
         });
       });
@@ -19592,15 +19608,15 @@ new Vue({
 /***/ }),
 
 /***/ 0:
-/*!***********************************!*\
-  !*** multi ./resources/js/app.js ***!
-  \***********************************/
+/*!************************************************!*\
+  !*** multi ./resources/js/cover-notes/edit.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /media/timtinan37/EA5C37C15C37877B/ubuntu/coding_prac/laravel/insurance_cover_note_&_policy_generator/icpg/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /media/timtinan37/EA5C37C15C37877B/ubuntu/coding_prac/laravel/insurance_cover_note_&_policy_generator/icpg/resources/js/cover-notes/edit.js */"./resources/js/cover-notes/edit.js");
 
 
 /***/ })
 
-},[[0,"/js/cover-notes/manifest","/js/cover-notes/vendor"]]]);
+},[[0,"/js/cover-notes/edit/manifest","/js/cover-notes/edit/vendor"]]]);

@@ -1,3 +1,4 @@
+require('../bootstrap');
 
 new Vue({
   el: '#transportation',
@@ -7,12 +8,12 @@ new Vue({
   },
   methods: {
     getCarriages(){
-      var carriageOptions = this.carriageOptions
+      var vm = this
       this.checkedTransits.forEach(function (element) {
-        axios.get(`/transits/${element}`, {params: {'ajax': 1}})
-             .then(function (response) {
-               carriageOptions.push({'name': response.data.name, 'id': response.data.id})
-             })
+          axios.get(`/transits/${element}?ajax=1`)
+            .then(response => {
+              vm.carriageOptions.push({name: response.data.name, id: response.data.id})
+            })
       })
     }
   },
