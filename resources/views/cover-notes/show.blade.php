@@ -26,6 +26,10 @@
             <td>{{ $coverNote->branch->name }}</td>
           </tr>
           <tr>
+            <th scope="row" colspan="4">Insured Bank name</th>
+            <td>{{ $coverNote->insured_bank_name }}</td>
+          </tr>
+          <tr>
             <th scope="row" colspan="4">Insured Bank Address</th>
             <td>{{ $coverNote->insured_bank_address }}</td>
           </tr>

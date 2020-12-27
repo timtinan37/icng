@@ -2,13 +2,14 @@
   @method('patch')
   @csrf
   <div class="form-group row">
-    <label class="col-md-3 col-form-label" for="issuing_office_id">Issuing Office</label>
+    <label class="col-md-3 col-form-label" for="issuing_office">Issuing Office</label>
     <div class="col-md-9">
-      <select class="form-control" id="issuing_office_id" name="issuing_office_id" autocomplete="off">
+      <select class="form-control" id="issuing_office" name="issuing_office" autocomplete="off" wire:model="issuing_office">
       	@foreach ($branches as $branch)
-      		<option value="{{ $branch->id }}" @if ($branch->id == $coverNote->branch->id) "selected" @endif>{{ $branch->name }}</option>
+      		<option value="{{ $branch->id }}">{{ $branch->name }}</option>
       	@endforeach
       </select>
+      @error('issuing_office') <span class="error">{{ $message }}</span> @enderror
     </div>
   </div>
   <div class="form-group row">

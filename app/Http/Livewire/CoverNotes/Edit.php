@@ -50,6 +50,8 @@ class Edit extends Component
     public function mount()
 	{
 		$this->fill([
+            'issuing_office' => $this->coverNote->issuing_office_id,
+            'insured_bank_name' => $this->coverNote->insured_bank_name,
             'insured_bank_address' => $this->coverNote->insured_bank_address,
             'insured_bank_account_name' => $this->coverNote->insured_bank_account_name,
             'insured_address' => $this->coverNote->insured_address,
