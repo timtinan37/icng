@@ -40,7 +40,12 @@
               <td>{{ $coverNote->total_premium_bdt }}</td>
               <td>{{ $coverNote->created_at }}</td>
               <td>{{ $coverNote->updated_at }}</td>
-              <td>
+              <td class="text-center">
+                <form method="post" action="{{ route('cover-notes.download', $coverNote->id) }}">
+                  @csrf
+                  <input type="hidden" name="fileType" value="docx">
+                  <button type="submit" class="btn btn-link">Download</button>
+                </form>
                 @can('update cover notes')
                   <a href="{{ route('cover-notes.edit', $coverNote->id) }}">Edit</a><br>
                 @endcan

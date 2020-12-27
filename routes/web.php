@@ -27,5 +27,6 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::resource('branches', 'BranchController');
 	Route::resource('transits', 'TransitController');
 	Route::resource('risks', 'RiskController');
+	Route::post('/cover-notes/{coverNote}/download', 'CoverNoteController@download')->name('cover-notes.download');
 	Route::resource('cover-notes', 'CoverNoteController')->parameters(['cover-notes' => 'coverNote']);
 });

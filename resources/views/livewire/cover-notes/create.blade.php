@@ -13,6 +13,13 @@
     </div>
   </div>
   <div class="form-group row">
+    <label class="col-md-3 col-form-label" for="insured_bank_name">Insured Bank Name</label>
+    <div class="col-md-9">
+      <input class="form-control" wire:model="insured_bank_name" id="insured_bank_name" name="insured_bank_name" type="text" placeholder="name of the insured bank">
+      @error('insured_bank_name') <span class="error">{{ $message }}</span> @enderror
+    </div>
+  </div>
+  <div class="form-group row">
     <label class="col-md-3 col-form-label" for="insured_bank_address">Insured Bank Address</label>
     <div class="col-md-9">
       <textarea class="form-control" wire:model="insured_bank_address" id="insured_bank_address" name="insured_bank_address" rows="9" placeholder="address of the insured bank"></textarea>

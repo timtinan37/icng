@@ -10,6 +10,7 @@ class Create extends Component
     public $risks;
     public $transits;
     public $issuing_office;
+    public $insured_bank_name;
 	public $insured_bank_address;
 	public $insured_bank_account_name;
 	public $insured_address;
@@ -28,13 +29,14 @@ class Create extends Component
     {
         return [
             'issuing_office' => ['required', 'string'],
+            'insured_bank_name' => ['required', 'string', 'min:2', 'max:255'],
             'insured_bank_address' => ['required', 'string', 'min:10', 'max:255'],
             'insured_bank_account_name' => ['required', 'string', 'max:255'],
             'insured_address' => ['required', 'string', 'min:10', 'max:255'],
             'interest_covered' => ['required', 'string', 'min:10'],
-            'voyage_from' => ['required', 'string', 'min:10', 'max:255'],
-            'voyage_to' => ['required', 'string', 'min:10', 'max:255'],
-            'voyage_via' => ['required', 'string', 'min:10', 'max:255'],
+            'voyage_from' => ['required', 'string', 'min:2', 'max:255'],
+            'voyage_to' => ['required', 'string', 'min:2', 'max:255'],
+            'voyage_via' => ['required', 'string', 'min:2', 'max:255'],
             'amount_insured_usd' => ['required', 'numeric'],
             'amount_insured_tolerance' => ['required', 'numeric'],
             'usd_to_bdt_rate' => ['required', 'numeric'],

@@ -17,6 +17,7 @@ class CreateCoverNotesTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('issuing_office_id')->nullable();
             $table->foreign('issuing_office_id')->references('id')->on('branches')->onDelete('set null');
+            $table->text('insured_bank_name');
             $table->text('insured_bank_address');
             $table->string('insured_bank_account_name');
             $table->text('insured_address');

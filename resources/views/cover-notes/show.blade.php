@@ -136,9 +136,15 @@
         </tbody>
       </table>
       <hr>
+
       @can('update cover notes')
-        <a href="{{ route('cover-notes.edit', $coverNote->id) }}"><button class="btn btn-primary">Edit</button></a>
+        <a class="d-inline" href="{{ route('cover-notes.edit', $coverNote->id) }}"><button class="btn btn-primary">Edit</button></a>
       @endcan
+      <form method="post" action="{{ route('cover-notes.download', $coverNote->id) }}" class="d-inline">
+        @csrf
+        <input type="hidden" name="fileType" value="docx">
+        <button type="submit" class="btn btn-danger">Download Docx</button>
+      </form>
     </div>
   </div>
 </div>

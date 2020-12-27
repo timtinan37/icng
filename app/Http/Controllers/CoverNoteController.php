@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CoverNote;
+use App\Http\Requests\CoverNoteRequest;
 use App\Models\Branch;
+use App\Models\CoverNote;
 use App\Models\Risk;
 use App\Models\Transit;
-use App\Http\Requests\CoverNoteRequest;
+use App\Services\CoverNoteGeneratorService;
 use Illuminate\Support\Facades\{
     View,
     Redirect
@@ -18,13 +19,15 @@ class CoverNoteController extends Controller
     private $coverNote;
     private $risk;
     private $transit;
+    private $coverNoteGeneratorService;
 
-    function __construct(CoverNote $coverNote, Branch $branch, Risk $risk, Transit $transit)
+    function __construct(CoverNote $coverNote, Branch $branch, Risk $risk, Transit $transit, CoverNoteGeneratorService $coverNoteGeneratorService)
     {
         $this->branch = $branch;
         $this->coverNote = $coverNote;
         $this->risk = $risk;
         $this->transit = $transit;
+        $this->coverNoteGeneratorService = $coverNoteGeneratorService;
 
         $this->authorizeResource(CoverNote::class, 'coverNote');
     }
@@ -127,5 +130,12 @@ class CoverNoteController extends Controller
         $coverNote->delete();
 
         return Redirect::route('cover-notes.index')->with('status', 'Cover Note Deleted!');
+    }
+
+    public function download(CoverNote $coverNote)
+    {
+        $fileType = request('fileType');
+        
+        $this->coverNoteGeneratorService->generate($coverNote, $fileType);
     }
 }
