@@ -17,9 +17,7 @@ Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'auth'], function ()
 {
-	Route::get('/', function () {
-	    return view('index');
-	})->name('index');
+	Route::get('/', 'IndexController')->name('index');
 	Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs.index')->middleware('can:view logs');
 	Route::get('users/{user}/permissons', 'UserController@showPermissions')->name('users.showPermissions');
 	Route::post('users/{user}/permissons/', 'UserController@givePermissions')->name('users.givePermissions');
